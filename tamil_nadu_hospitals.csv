@@ -1,0 +1,128 @@
+hospital_name,type,district,state,latitude,longitude
+PHC Sankarankoil,PHC,Tirunelveli,Tamil Nadu,9.1765,77.5538
+PHC Radhapuram,PHC,Tirunelveli,Tamil Nadu,8.3176,77.7398
+PHC Nanguneri,PHC,Tirunelveli,Tamil Nadu,8.4972,77.6543
+CHC Palayamkottai,CHC,Tirunelveli,Tamil Nadu,8.7139,77.7567
+District Hospital Tirunelveli,District Hospital,Tirunelveli,Tamil Nadu,8.7139,77.7567
+PHC Ambasamudram,PHC,Tirunelveli,Tamil Nadu,8.7104,77.4532
+PHC Cheranmahadevi,PHC,Tirunelveli,Tamil Nadu,8.6793,77.5412
+CHC Tenkasi,CHC,Tenkasi,Tamil Nadu,8.9592,77.3152
+PHC Courtallam,PHC,Tenkasi,Tamil Nadu,8.9353,77.2729
+District Hospital Tenkasi,District Hospital,Tenkasi,Tamil Nadu,8.9592,77.3152
+PHC Kadayam,PHC,Tenkasi,Tamil Nadu,8.8821,77.3456
+PHC Puliyangudi,PHC,Tenkasi,Tamil Nadu,9.1721,77.3972
+PHC Vasudevanallur,PHC,Tenkasi,Tamil Nadu,9.0432,77.3218
+CHC Sivakasi,CHC,Virudhunagar,Tamil Nadu,9.4533,77.7987
+PHC Srivilliputhur,PHC,Virudhunagar,Tamil Nadu,9.5104,77.6345
+District Hospital Virudhunagar,District Hospital,Virudhunagar,Tamil Nadu,9.5804,77.9624
+PHC Sattur,PHC,Virudhunagar,Tamil Nadu,9.3543,77.9143
+PHC Aruppukkottai,PHC,Virudhunagar,Tamil Nadu,9.5093,78.0981
+CHC Rajapalayam,CHC,Virudhunagar,Tamil Nadu,9.4532,77.5564
+PHC Watrap,PHC,Virudhunagar,Tamil Nadu,9.5312,77.7123
+PHC Thiruchuli,PHC,Virudhunagar,Tamil Nadu,9.4102,77.9876
+CHC Madurai North,CHC,Madurai,Tamil Nadu,9.9252,78.1198
+CHC Madurai South,CHC,Madurai,Tamil Nadu,9.8932,78.1043
+District Hospital Madurai,District Hospital,Madurai,Tamil Nadu,9.9252,78.1198
+PHC Melur,PHC,Madurai,Tamil Nadu,10.0432,78.3412
+PHC Usilampatti,PHC,Madurai,Tamil Nadu,9.8176,77.8123
+PHC Thirumangalam,PHC,Madurai,Tamil Nadu,9.8432,77.9876
+PHC Vadipatti,PHC,Madurai,Tamil Nadu,10.0921,77.9654
+CHC Dindigul,CHC,Dindigul,Tamil Nadu,10.3673,77.9803
+District Hospital Dindigul,District Hospital,Dindigul,Tamil Nadu,10.3673,77.9803
+PHC Palani,PHC,Dindigul,Tamil Nadu,10.4512,77.5234
+PHC Oddanchatram,PHC,Dindigul,Tamil Nadu,10.4923,77.7456
+PHC Natham,PHC,Dindigul,Tamil Nadu,10.2143,78.0432
+CHC Coimbatore East,CHC,Coimbatore,Tamil Nadu,11.0168,76.9558
+CHC Coimbatore West,CHC,Coimbatore,Tamil Nadu,10.9876,76.9234
+District Hospital Coimbatore,District Hospital,Coimbatore,Tamil Nadu,11.0168,76.9558
+PHC Pollachi,PHC,Coimbatore,Tamil Nadu,10.6543,77.0123
+PHC Mettupalayam,PHC,Coimbatore,Tamil Nadu,11.2987,76.9432
+PHC Sulur,PHC,Coimbatore,Tamil Nadu,10.9543,77.1234
+PHC Kinathukadavu,PHC,Coimbatore,Tamil Nadu,10.7632,77.0543
+CHC Salem,CHC,Salem,Tamil Nadu,11.6643,78.1460
+District Hospital Salem,District Hospital,Salem,Tamil Nadu,11.6643,78.1460
+PHC Attur,PHC,Salem,Tamil Nadu,11.5987,78.5987
+PHC Omalur,PHC,Salem,Tamil Nadu,11.7432,78.0432
+PHC Mettur,PHC,Salem,Tamil Nadu,11.7987,77.8012
+PHC Edapadi,PHC,Salem,Tamil Nadu,11.5432,77.9876
+CHC Tiruchirappalli,CHC,Tiruchirappalli,Tamil Nadu,10.7905,78.7047
+District Hospital Tiruchirappalli,District Hospital,Tiruchirappalli,Tamil Nadu,10.7905,78.7047
+PHC Lalgudi,PHC,Tiruchirappalli,Tamil Nadu,10.8543,78.8234
+PHC Musiri,PHC,Tiruchirappalli,Tamil Nadu,10.9432,78.4432
+PHC Thuraiyur,PHC,Tiruchirappalli,Tamil Nadu,11.1432,78.5987
+CHC Thanjavur,CHC,Thanjavur,Tamil Nadu,10.7870,79.1378
+District Hospital Thanjavur,District Hospital,Thanjavur,Tamil Nadu,10.7870,79.1378
+PHC Kumbakonam,PHC,Thanjavur,Tamil Nadu,10.9652,79.3876
+PHC Papanasam,PHC,Thanjavur,Tamil Nadu,10.9234,79.2543
+PHC Pattukkottai,PHC,Thanjavur,Tamil Nadu,10.4287,79.3198
+CHC Vellore,CHC,Vellore,Tamil Nadu,12.9165,79.1325
+District Hospital Vellore,District Hospital,Vellore,Tamil Nadu,12.9165,79.1325
+PHC Ranipet,PHC,Ranipet,Tamil Nadu,12.9234,79.3345
+PHC Arakkonam,PHC,Ranipet,Tamil Nadu,13.0876,79.6765
+PHC Walajah,PHC,Ranipet,Tamil Nadu,12.9198,79.3654
+CHC Krishnagiri,CHC,Krishnagiri,Tamil Nadu,12.5186,78.2137
+District Hospital Krishnagiri,District Hospital,Krishnagiri,Tamil Nadu,12.5186,78.2137
+PHC Hosur,PHC,Krishnagiri,Tamil Nadu,12.7409,77.8253
+PHC Denkanikottai,PHC,Krishnagiri,Tamil Nadu,12.4532,77.9876
+PHC Bargur,PHC,Krishnagiri,Tamil Nadu,12.3987,78.4321
+CHC Chennai Egmore,CHC,Chennai,Tamil Nadu,13.0732,80.2609
+CHC Chennai Tambaram,CHC,Chennai,Tamil Nadu,12.9249,80.1000
+District Hospital Chennai,District Hospital,Chennai,Tamil Nadu,13.0827,80.2707
+PHC Chennai Ambattur,PHC,Chennai,Tamil Nadu,13.1143,80.1543
+PHC Chennai Sholinganallur,PHC,Chennai,Tamil Nadu,12.9010,80.2279
+PHC Chennai Avadi,PHC,Chennai,Tamil Nadu,13.1154,80.0985
+CHC Erode,CHC,Erode,Tamil Nadu,11.3410,77.7172
+District Hospital Erode,District Hospital,Erode,Tamil Nadu,11.3410,77.7172
+PHC Bhavani,PHC,Erode,Tamil Nadu,11.4432,77.6832
+PHC Gobichettipalayam,PHC,Erode,Tamil Nadu,11.4543,77.3543
+PHC Perundurai,PHC,Erode,Tamil Nadu,11.2765,77.5832
+CHC Tiruppur,CHC,Tiruppur,Tamil Nadu,11.1085,77.3411
+District Hospital Tiruppur,District Hospital,Tiruppur,Tamil Nadu,11.1085,77.3411
+PHC Dharapuram,PHC,Tiruppur,Tamil Nadu,10.7432,77.5123
+PHC Udumalaipettai,PHC,Tiruppur,Tamil Nadu,10.5876,77.2543
+CHC Nagercoil,CHC,Kanyakumari,Tamil Nadu,8.1833,77.4119
+District Hospital Kanyakumari,District Hospital,Kanyakumari,Tamil Nadu,8.1833,77.4119
+PHC Colachel,PHC,Kanyakumari,Tamil Nadu,8.1765,77.2543
+PHC Padmanabhapuram,PHC,Kanyakumari,Tamil Nadu,8.2543,77.3212
+PHC Thuckalay,PHC,Kanyakumari,Tamil Nadu,8.2198,77.3987
+CHC Villupuram,CHC,Villupuram,Tamil Nadu,11.9402,79.4927
+District Hospital Villupuram,District Hospital,Villupuram,Tamil Nadu,11.9402,79.4927
+PHC Tindivanam,PHC,Villupuram,Tamil Nadu,12.2432,79.6543
+PHC Kallakurichi,PHC,Villupuram,Tamil Nadu,11.7376,78.9608
+PHC Gingee,PHC,Villupuram,Tamil Nadu,12.2543,79.4132
+CHC Cuddalore,CHC,Cuddalore,Tamil Nadu,11.7480,79.7714
+District Hospital Cuddalore,District Hospital,Cuddalore,Tamil Nadu,11.7480,79.7714
+PHC Chidambaram,PHC,Cuddalore,Tamil Nadu,11.3997,79.6928
+PHC Panruti,PHC,Cuddalore,Tamil Nadu,11.7654,79.5543
+CHC Nagapattinam,CHC,Nagapattinam,Tamil Nadu,10.7672,79.8449
+District Hospital Nagapattinam,District Hospital,Nagapattinam,Tamil Nadu,10.7672,79.8449
+PHC Mayiladuthurai,PHC,Nagapattinam,Tamil Nadu,11.1027,79.6527
+PHC Sirkazhi,PHC,Nagapattinam,Tamil Nadu,11.2345,79.7432
+CHC Pudukkottai,CHC,Pudukkottai,Tamil Nadu,10.3833,78.8001
+District Hospital Pudukkottai,District Hospital,Pudukkottai,Tamil Nadu,10.3833,78.8001
+PHC Aranthangi,PHC,Pudukkottai,Tamil Nadu,10.1732,79.0432
+PHC Karambakudi,PHC,Pudukkottai,Tamil Nadu,10.4543,78.7654
+CHC Ramanathapuram,CHC,Ramanathapuram,Tamil Nadu,9.3639,78.8395
+District Hospital Ramanathapuram,District Hospital,Ramanathapuram,Tamil Nadu,9.3639,78.8395
+PHC Paramakudi,PHC,Ramanathapuram,Tamil Nadu,9.5432,78.5987
+PHC Rameswaram,PHC,Ramanathapuram,Tamil Nadu,9.2885,79.3129
+CHC Sivaganga,CHC,Sivaganga,Tamil Nadu,9.8432,78.4832
+District Hospital Sivaganga,District Hospital,Sivaganga,Tamil Nadu,9.8432,78.4832
+PHC Karaikudi,PHC,Sivaganga,Tamil Nadu,10.0765,78.7654
+PHC Devakottai,PHC,Sivaganga,Tamil Nadu,9.9543,78.8234
+CHC Namakkal,CHC,Namakkal,Tamil Nadu,11.2195,78.1673
+District Hospital Namakkal,District Hospital,Namakkal,Tamil Nadu,11.2195,78.1673
+PHC Rasipuram,PHC,Namakkal,Tamil Nadu,11.4543,78.1765
+PHC Tiruchengode,PHC,Namakkal,Tamil Nadu,11.3876,77.8943
+CHC Dharmapuri,CHC,Dharmapuri,Tamil Nadu,12.1211,78.1582
+District Hospital Dharmapuri,District Hospital,Dharmapuri,Tamil Nadu,12.1211,78.1582
+PHC Palacode,PHC,Dharmapuri,Tamil Nadu,12.1987,78.0432
+PHC Pennagaram,PHC,Dharmapuri,Tamil Nadu,12.0543,77.9876
+CHC Tiruvannamalai,CHC,Tiruvannamalai,Tamil Nadu,12.2253,79.0747
+District Hospital Tiruvannamalai,District Hospital,Tiruvannamalai,Tamil Nadu,12.2253,79.0747
+PHC Polur,PHC,Tiruvannamalai,Tamil Nadu,12.4987,79.1234
+PHC Cheyyar,PHC,Tiruvannamalai,Tamil Nadu,12.6654,79.5432
+CHC Kancheepuram,CHC,Kancheepuram,Tamil Nadu,12.8387,79.7026
+District Hospital Kancheepuram,District Hospital,Kancheepuram,Tamil Nadu,12.8387,79.7026
+PHC Uthiramerur,PHC,Kancheepuram,Tamil Nadu,12.6543,79.7543
+PHC Sriperumbudur,PHC,Kancheepuram,Tamil Nadu,12.9698,79.9483
