@@ -7,7 +7,7 @@ import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from langdetect  import detect
 
 st.set_page_config(
@@ -127,7 +127,7 @@ except Exception as e:
     models_loaded = False
     load_error = str(e)
 
-translator = Translator()
+translator = GoogleTranslator(source='ta', target='en')
 
 tamil_symptom_map = {
     "காய்ச்சல்": "high_fever", "kaichal": "high_fever", "kaayshal": "high_fever",
@@ -225,7 +225,7 @@ def normalize_input(user_text):
     lang = detect_language(text)
     if lang == 'ta':
         try:
-            text = translator.translate(text, src='ta', dest='en').text.lower()
+            text = translator.translate(text).lower()
         except:
             pass
     for wrong, correct in translation_fixes.items():
