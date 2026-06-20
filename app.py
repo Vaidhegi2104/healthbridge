@@ -127,7 +127,7 @@ except Exception as e:
     models_loaded = False
     load_error = str(e)
 
-translator = GoogleTranslator(source='ta', target='en')
+translator = GoogleTranslator(source="ta", target="en")
 
 tamil_symptom_map = {
     "காய்ச்சல்": "high_fever", "kaichal": "high_fever", "kaayshal": "high_fever",
@@ -375,6 +375,11 @@ if predict_btn:
             if not matched:
                 st.error("No symptoms detected. Please try again.")
                 st.info("Example: **kaichal thalai vali** or **fever headache vomiting** or **காய்ச்சல் தலைவலி**")
+                st.stop()
+
+            if len(matched) < 3:
+                st.warning(f"⚠️ You entered only **{len(matched)} symptom(s)**. Please enter **at least 3 symptoms** for accurate prediction.")
+                st.info(f"✅ Symptom detected so far: **{', '.join([s.replace('_',' ') for s in matched])}**\n\nAdd more symptoms like: headache, vomiting, chills, fatigue, body pain")
                 st.stop()
 
             probs    = rf_model.predict_proba(input_vector)[0]
