@@ -9,7 +9,6 @@ warnings.filterwarnings('ignore')
 
 from deep_translator import GoogleTranslator
 from langdetect  import detect
-import requests
 
 st.set_page_config(
     page_title = "HealthBridge",
@@ -321,57 +320,6 @@ def find_nearest_hospitals(user_lat, user_lon, top_n=3):
     return results
 
 
-def find_hospitals_overpass(lat, lon, radius_km=5):
-    radius_m = radius_km * 1000
-    query = f"""
-    [out:json][timeout:25];
-    (
-      node["amenity"="hospital"](around:{radius_m},{lat},{lon});
-      node["amenity"="clinic"](around:{radius_m},{lat},{lon});
-      node["amenity"="pharmacy"](around:{radius_m},{lat},{lon});
-      node["amenity"="doctors"](around:{radius_m},{lat},{lon});
-      node["healthcare"="hospital"](around:{radius_m},{lat},{lon});
-      node["healthcare"="clinic"](around:{radius_m},{lat},{lon});
-    );
-    out body;
-    """
-    try:
-        response = requests.post(
-            "https://overpass-api.de/api/interpreter",
-            data=query,
-            timeout=20
-        )
-        data = response.json()
-        results = []
-        for element in data.get('elements', []):
-            tags = element.get('tags', {})
-            name = tags.get('name', tags.get('name:en', tags.get('name:ta', 'Unknown Hospital')))
-            amenity = tags.get('amenity', tags.get('healthcare', 'hospital'))
-            
-            type_map = {
-                'hospital': 'Hospital',
-                'clinic': 'Clinic',
-                'pharmacy': 'Pharmacy',
-                'doctors': 'Doctor Clinic',
-            }
-            place_type = type_map.get(amenity, 'Hospital')
-            
-            h_lat = element.get('lat', lat)
-            h_lon = element.get('lon', lon)
-            dist  = haversine_distance(lat, lon, h_lat, h_lon)
-            
-            results.append({
-                'name'       : name,
-                'type'       : place_type,
-                'distance_km': dist,
-                'maps_link'  : f"https://maps.google.com/?q={h_lat},{h_lon}"
-            })
-        
-        results = sorted(results, key=lambda x: x['distance_km'])
-        return results[:5]
-    except Exception as e:
-        return []
-
 st.markdown('<div class="main-title">🏥 HealthBridge</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">AI-Powered Symptom Checker & Hospital Navigator for Rural Tamil Nadu</div>', unsafe_allow_html=True)
 
@@ -526,16 +474,24 @@ if predict_btn:
         st.markdown(sym_badges, unsafe_allow_html=True)
 
         if use_location and user_lat and user_lon:
-            st.markdown("#### 🗺️ Nearby Hospitals & Clinics")
-            with st.spinner("Finding nearby hospitals and clinics..."):
-                hospitals = find_hospitals_overpass(user_lat, user_lon, radius_km=search_radius)
+            st.markdown("#### 🗺️ Nearest Hospitals")
 
-            if not hospitals:
-                st.warning(f"⚠️ No hospitals found within {search_radius} km using live search. Showing nearest from our dataset instead.")
-                hospitals_df['distance_km'] = hospitals_df.apply(
-                    lambda row: haversine_distance(user_lat, user_lon, row['latitude'], row['longitude']), axis=1
-                )
+            hospitals_df['distance_km'] = hospitals_df.apply(
+                lambda row: haversine_distance(user_lat, user_lon, row['latitude'], row['longitude']), axis=1
+            )
+
+            filtered = hospitals_df[hospitals_df['distance_km'] <= search_radius]
+
+            if hospital_types:
+                type_filter = hospitals_df['type'].str.contains('|'.join(hospital_types), case=False, na=False)
+                filtered = hospitals_df[type_filter & (hospitals_df['distance_km'] <= search_radius)]
+
+            filtered = filtered.sort_values('distance_km').head(3)
+
+            if len(filtered) == 0:
+                st.warning(f"⚠️ No hospitals found within {search_radius} km. Try increasing the search radius.")
                 nearest = hospitals_df.sort_values('distance_km').head(3)
+                st.info("Showing 3 nearest hospitals from Tamil Nadu dataset:")
                 for i, (_, row) in enumerate(nearest.iterrows(), 1):
                     maps_link = f"https://maps.google.com/?q={row['latitude']},{row['longitude']}"
                     st.markdown(f"""
@@ -546,14 +502,16 @@ if predict_btn:
                     </div>
                     """, unsafe_allow_html=True)
             else:
-                st.success(f"✅ Found {len(hospitals)} hospital(s) and clinic(s) within {search_radius} km")
-                for i, h in enumerate(hospitals, 1):
+                st.success(f"✅ Found {len(filtered)} hospital(s) within {search_radius} km")
+                for i, (_, row) in enumerate(filtered.iterrows(), 1):
+                    maps_link = f"https://maps.google.com/?q={row['latitude']},{row['longitude']}"
                     st.markdown(f"""
                     <div class="hospital-card">
-                        <b>{i}. {h['name']}</b><br>
-                        <span style="color:#5d6d7e;">🏥 {h['type']} &nbsp;|&nbsp; 📏 {h['distance_km']} km away</span><br>
-                        <a href="{h['maps_link']}" target="_blank" style="color:#1a5276; font-weight:600;">📌 Open in Google Maps →</a>
+                        <b>{i}. {row['hospital_name']}</b><br>
+                        <span style="color:#5d6d7e;">🏥 {row['type']} &nbsp;|&nbsp; 📍 {row['district']} &nbsp;|&nbsp; 📏 {round(row['distance_km'],2)} km away</span><br>
+                        <a href="{maps_link}" target="_blank" style="color:#1a5276; font-weight:600;">📌 Open in Google Maps →</a>
                     </div>
                     """, unsafe_allow_html=True)
 
         st.markdown('<div class="footer-note">⚠️ HealthBridge provides guidance only — not a medical diagnosis. Always consult a qualified doctor.</div>', unsafe_allow_html=True)
+
