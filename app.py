@@ -355,12 +355,44 @@ with col2:
     use_location = st.checkbox("Find nearest hospitals (enter GPS coordinates)", value=False)
 
 user_lat = user_lon = None
+search_radius = 5
+hospital_types = []
 if use_location:
     col3, col4 = st.columns(2)
     with col3:
         user_lat = st.number_input("Latitude",  value=13.0827, format="%.4f")
     with col4:
         user_lon = st.number_input("Longitude", value=80.2707, format="%.4f")
+
+    st.markdown("**🔘 Search Radius**")
+    search_radius = st.radio(
+        "Select radius",
+        options=[1, 3, 5],
+        format_func=lambda x: f"{x} km — {'Very nearby' if x==1 else 'Nearby' if x==3 else 'Wider area'}",
+        horizontal=True,
+        label_visibility="collapsed"
+    )
+
+    st.markdown("**🏥 Hospital Type Filter**")
+    col5, col6, col7, col8 = st.columns(4)
+    with col5:
+        show_govt = st.checkbox("Government", value=True)
+    with col6:
+        show_private = st.checkbox("Private", value=True)
+    with col7:
+        show_clinic = st.checkbox("Clinic", value=True)
+    with col8:
+        show_pharmacy = st.checkbox("Pharmacy", value=True)
+
+    hospital_types = []
+    if show_govt:
+        hospital_types.extend(["District Hospital", "PHC", "CHC", "Government"])
+    if show_private:
+        hospital_types.append("Private")
+    if show_clinic:
+        hospital_types.append("Clinic")
+    if show_pharmacy:
+        hospital_types.append("Pharmacy")
 
 predict_btn = st.button("🔍 Check My Symptoms", use_container_width=True, type="primary")
 
@@ -377,9 +409,9 @@ if predict_btn:
                 st.info("Example: **kaichal thalai vali** or **fever headache vomiting** or **காய்ச்சல் தலைவலி**")
                 st.stop()
 
-            if len(matched) < 3:
-                st.warning(f"⚠️ You entered only **{len(matched)} symptom(s)**. Please enter **at least 3 symptoms** for accurate prediction.")
-                st.info(f"✅ Symptom detected so far: **{', '.join([s.replace('_',' ') for s in matched])}**\n\nAdd more symptoms like: headache, vomiting, chills, fatigue, body pain")
+            if len(matched) < 5:
+                st.warning(f"⚠️ You entered only **{len(matched)} symptom(s)**. Please enter **at least 5 symptoms** for accurate prediction.")
+                st.info(f"✅ Symptoms detected so far: **{', '.join([s.replace('_',' ') for s in matched])}**\n\nAdd more symptoms like: headache, vomiting, chills, fatigue, body pain, sweating, nausea, dizziness")
                 st.stop()
 
             probs    = rf_model.predict_proba(input_vector)[0]
@@ -400,6 +432,12 @@ if predict_btn:
             ))
 
             top_disease = list(adj_preds.keys())[0]
+            top_confidence = list(adj_preds.values())[0]
+
+            if top_confidence < 0.50:
+                st.warning(f"⚠️ Low confidence prediction — **{int(top_confidence*100)}%**. Please enter more specific symptoms for better accuracy.")
+                st.info("Add more symptoms to improve prediction accuracy.")
+
             urgency_level = get_urgency(top_disease, matched, days)
             icon, tamil_label, tamil_msg, eng_msg, box_class = urgency_tamil[urgency_level]
             tips        = get_first_aid(top_disease)
@@ -436,15 +474,32 @@ if predict_btn:
         st.markdown(sym_badges, unsafe_allow_html=True)
 
         if use_location and user_lat and user_lon:
-            st.markdown("#### 🗺️ 3 Nearest Hospitals")
-            hospitals = find_nearest_hospitals(user_lat, user_lon, top_n=3)
-            for i, h in enumerate(hospitals, 1):
-                st.markdown(f"""
-                <div class="hospital-card">
-                    <b>{i}. {h['name']}</b><br>
-                    <span style="color:#5d6d7e;">🏥 {h['type']} &nbsp;|&nbsp; 📍 {h['district']} &nbsp;|&nbsp; 📏 {h['distance_km']} km away</span><br>
-                    <a href="{h['maps_link']}" target="_blank" style="color:#1a5276; font-weight:600;">📌 Open in Google Maps →</a>
-                </div>
-                """, unsafe_allow_html=True)
+            st.markdown("#### 🗺️ Nearest Hospitals")
+
+            hospitals_df['distance_km'] = hospitals_df.apply(
+                lambda row: haversine_distance(user_lat, user_lon, row['latitude'], row['longitude']), axis=1
+            )
+
+            filtered = hospitals_df[hospitals_df['distance_km'] <= search_radius]
+
+            if hospital_types:
+                type_filter = hospitals_df['type'].str.contains('|'.join(hospital_types), case=False, na=False)
+                filtered = hospitals_df[type_filter & (hospitals_df['distance_km'] <= search_radius)]
+
+            filtered = filtered.sort_values('distance_km').head(3)
+
+            if len(filtered) == 0:
+                st.warning(f"⚠️ No hospitals found within {search_radius} km. Try increasing the search radius.")
+            else:
+                st.success(f"✅ Found {len(filtered)} hospital(s) within {search_radius} km")
+                for i, (_, row) in enumerate(filtered.iterrows(), 1):
+                    maps_link = f"https://maps.google.com/?q={row['latitude']},{row['longitude']}"
+                    st.markdown(f"""
+                    <div class="hospital-card">
+                        <b>{i}. {row['hospital_name']}</b><br>
+                        <span style="color:#5d6d7e;">🏥 {row['type']} &nbsp;|&nbsp; 📍 {row['district']} &nbsp;|&nbsp; 📏 {round(row['distance_km'],2)} km away</span><br>
+                        <a href="{maps_link}" target="_blank" style="color:#1a5276; font-weight:600;">📌 Open in Google Maps →</a>
+                    </div>
+                    """, unsafe_allow_html=True)
 
         st.markdown('<div class="footer-note">⚠️ HealthBridge provides guidance only — not a medical diagnosis. Always consult a qualified doctor.</div>', unsafe_allow_html=True)
