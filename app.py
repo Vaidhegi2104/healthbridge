@@ -1,4 +1,5 @@
-import streamlit as st
+
+        import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
@@ -373,26 +374,7 @@ if use_location:
         label_visibility="collapsed"
     )
 
-    st.markdown("**🏥 Hospital Type Filter**")
-    col5, col6, col7, col8 = st.columns(4)
-    with col5:
-        show_govt = st.checkbox("Government", value=True)
-    with col6:
-        show_private = st.checkbox("Private", value=True)
-    with col7:
-        show_clinic = st.checkbox("Clinic", value=True)
-    with col8:
-        show_pharmacy = st.checkbox("Pharmacy", value=True)
-
-    hospital_types = []
-    if show_govt:
-        hospital_types.extend(["District Hospital", "PHC", "CHC", "Government"])
-    if show_private:
-        hospital_types.append("Private")
-    if show_clinic:
-        hospital_types.append("Clinic")
-    if show_pharmacy:
-        hospital_types.append("Pharmacy")
+    hospital_types = ["District Hospital", "PHC", "CHC", "Government"]
 
 predict_btn = st.button("🔍 Check My Symptoms", use_container_width=True, type="primary")
 
@@ -514,4 +496,3 @@ if predict_btn:
                     """, unsafe_allow_html=True)
 
         st.markdown('<div class="footer-note">⚠️ HealthBridge provides guidance only — not a medical diagnosis. Always consult a qualified doctor.</div>', unsafe_allow_html=True)
-
