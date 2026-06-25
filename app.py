@@ -461,13 +461,7 @@ if predict_btn:
         st.markdown(f"#### 📖 About {top_disease}")
         st.markdown(f'<div class="section-card">{description}</div>', unsafe_allow_html=True)
         
-        # DEBUG EXPANDER — remove after fixing
-        with st.expander("🛠️ Debug Info (remove after fix)"):
-            st.write("**Predicted disease:**", repr(top_disease))
-            st.write("**Description found:**", repr(description))
-            st.write("**First Aid tips:**", tips)
-            st.write("**desc_df disease column sample:**", desc_df.iloc[:, 0].head(10).tolist())
-            st.write("**prec_df disease column sample:**", prec_df.iloc[:, 0].head(10).tolist())
+       
 
         st.markdown("#### ⚡ Urgency Level")
         st.markdown(f"""
