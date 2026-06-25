@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -277,22 +276,45 @@ def get_urgency(disease_name, matched_symptoms, days):
     return final_level
 
 def get_first_aid(disease_name):
-    row = prec_df[prec_df.iloc[:, 0].str.strip().str.lower() == disease_name.strip().lower()]
+    # Clean disease name
+    disease_clean = disease_name.strip().lower()
+    
+    # Try exact match first (case-insensitive + stripped)
+    row = prec_df[prec_df.iloc[:, 0].str.strip().str.lower() == disease_clean]
+    
+    # If not found, try partial match
+    if len(row) == 0:
+        row = prec_df[prec_df.iloc[:, 0].str.strip().str.lower().str.contains(disease_clean, na=False)]
+    
     if len(row) == 0:
         return ["Rest and stay hydrated.", "Avoid self-medication.",
                 "Visit the nearest health centre as soon as possible."]
     tips = []
     for col in prec_df.columns[1:]:
         tip = str(row.iloc[0][col]).strip()
-        if tip and tip.lower() != 'nan':
+        if tip and tip.lower() not in ('nan', 'none', ''):
             tips.append(tip.capitalize())
     return tips if tips else ["Rest and visit nearest health centre."]
 
 def get_disease_description(disease_name):
-    row = desc_df[desc_df.iloc[:, 0].str.strip().str.lower() == disease_name.strip().lower()]
+    # Clean disease name
+    disease_clean = disease_name.strip().lower()
+    
+    # Try exact match first (case-insensitive + stripped)
+    row = desc_df[desc_df.iloc[:, 0].str.strip().str.lower() == disease_clean]
+    
+    # If not found, try partial match
     if len(row) == 0:
-        return "Please consult a doctor for proper diagnosis."
-    return str(row.iloc[0].iloc[1]).strip()
+        row = desc_df[desc_df.iloc[:, 0].str.strip().str.lower().str.contains(disease_clean, na=False)]
+    
+    if len(row) == 0:
+        return "Please consult a doctor for proper diagnosis and treatment."
+    
+    desc = str(row.iloc[0].iloc[1]).strip()
+    # Return fallback if description is empty or NaN
+    if not desc or desc.lower() in ('nan', 'none', ''):
+        return "Please consult a doctor for proper diagnosis and treatment."
+    return desc
 
 def haversine_distance(lat1, lon1, lat2, lon2):
     R     = 6371
@@ -437,6 +459,14 @@ if predict_btn:
 
         st.markdown(f"#### 📖 About {top_disease}")
         st.markdown(f'<div class="section-card">{description}</div>', unsafe_allow_html=True)
+        
+        # DEBUG EXPANDER — remove after fixing
+        with st.expander("🛠️ Debug Info (remove after fix)"):
+            st.write("**Predicted disease:**", repr(top_disease))
+            st.write("**Description found:**", repr(description))
+            st.write("**First Aid tips:**", tips)
+            st.write("**desc_df disease column sample:**", desc_df.iloc[:, 0].head(10).tolist())
+            st.write("**prec_df disease column sample:**", prec_df.iloc[:, 0].head(10).tolist())
 
         st.markdown("#### ⚡ Urgency Level")
         st.markdown(f"""
