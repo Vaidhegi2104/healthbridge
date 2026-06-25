@@ -53,6 +53,7 @@ html, body, [class*="css"] {
     border-radius: 8px;
     padding: 14px 18px;
     margin-bottom: 14px;
+     color: #1a1a1a !important;
 }
 .emergency-box {
     background: #fdecea;
